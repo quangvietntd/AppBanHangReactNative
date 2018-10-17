@@ -5,40 +5,136 @@
  * @format
  * @flow
  */
-import { createStackNavigator } from 'react-navigation';
-import Authencation from './components/Authencation';
-import ChangeInfo from './components/ChangeInfo';
+import { Image } from 'react-native';
+import React from 'react';
+
+//import { createStackNavigator } from 'react-navigation';
+//import Authencation from './components/Authencation';
+//import ChangeInfo from './components/ChangeInfo';
 import Main from './components/Main';
-import OrderHistory from './components/OrderHistory';
+//import OrderHistory from './components/OrderHistory';
+
+import { createBottomTabNavigator } from 'react-navigation';
+import Cart from './components/Cart';
+import Search from './components/Search';
+import Contact from './components/Contact';
 
 
-const App = createStackNavigator({
-  Main: {
+const routeConfigs = {
+  Home: {
     screen: Main,
     navigationOptions: {
-      headerTitle: 'Main'
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ focused }) => {
+        const icon1 = require('./assets/appIcon/home.png');
+        const icon2 = require('./assets/appIcon/home0.png');
+
+        const icon = focused ? icon1 : icon2;
+        return (<Image
+          source={icon}
+          style={{ width: 25, height: 25, }}
+        />
+        );
+      }
     },
   },
-  Authencation: {
-    screen: Authencation,
+  Cart: {
+    screen: Cart,
     navigationOptions: {
-      headerTitle: 'Authencation'
+      tabBarLabel: 'Cart',
+      tabBarIcon: ({ focused }) => {
+        const icon1 = require('./assets/appIcon/cart.png');
+        const icon2 = require('./assets/appIcon/cart0.png');
+
+        const icon = focused ? icon1 : icon2;
+        return (<Image
+          source={icon}
+          style={{ width: 25, height: 25, }}
+        />
+        );
+      }
     },
   },
-  ChangeInfo: {
-    screen: ChangeInfo,
+  Search: {
+    screen: Search,
     navigationOptions: {
-      headerTitle: 'ChangeInfo'
+      tabBarLabel: 'Search',
+      tabBarIcon: ({ focused }) => {
+        const icon1 = require('./assets/appIcon/search.png');
+        const icon2 = require('./assets/appIcon/search0.png');
+
+        const icon = focused ? icon1 : icon2;
+        return (<Image
+          source={icon}
+          style={{ width: 25, height: 25, }}
+        />
+        );
+      }
     },
   },
-  OrderHistory: {
-    screen: OrderHistory,
+  Contact: {
+    screen: Contact,
     navigationOptions: {
-      headerTitle: 'OrderHistory'
+      tabBarLabel: 'Contact',
+      tabBarIcon: ({ focused }) => {
+        const icon1 = require('./assets/appIcon/contact.png');
+        const icon2 = require('./assets/appIcon/contact0.png');
+
+        const icon = focused ? icon1 : icon2;
+        return (<Image
+          source={icon}
+          style={{ width: 25, height: 25, }}
+        />
+        );
+      }
     },
   },
-}, {
-  initialRouteName: 'Main'
-});
+
+};
+
+const bottomTabNavigatorConfig = {
+  initialRoute: 'Main',
+  tabBarOptions: {
+    activeTintColor: 'green',
+    inactiveBackgroundColor: '',
+    inactiveTintColor: 'gray',
+  }
+};
+
+const App = createBottomTabNavigator(routeConfigs, bottomTabNavigatorConfig);
 export default App;
+
+
+
+// const App = createStackNavigator({
+//   Main: {
+//     screen: Main,
+//     navigationOptions: {
+//       headerTitle: 'Main'
+//     },
+//   },
+//   Authencation: {
+//     screen: Authencation,
+//     navigationOptions: {
+//       headerTitle: 'Authencation'
+//     },
+//   },
+//   ChangeInfo: {
+//     screen: ChangeInfo,
+//     navigationOptions: {
+//       headerTitle: 'ChangeInfo'
+//     },
+//   },
+//   OrderHistory: {
+//     screen: OrderHistory,
+//     navigationOptions: {
+//       headerTitle: 'OrderHistory'
+//     },
+//   },
+// }, {
+//     initialRouteName: 'Main',
+//     headerMode: 'none',
+//   });
+// export default App;
+
 
