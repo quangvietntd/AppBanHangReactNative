@@ -15,6 +15,7 @@ import Main from './components/Main';
 //import OrderHistory from './components/OrderHistory';
 
 import { createBottomTabNavigator } from 'react-navigation';
+import Home from './components/Home';
 import Cart from './components/Cart';
 import Search from './components/Search';
 import Contact from './components/Contact';
@@ -22,7 +23,7 @@ import Contact from './components/Contact';
 
 const routeConfigs = {
   Home: {
-    screen: Main,
+    screen: Home,
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: ({ focused }) => {
