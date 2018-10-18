@@ -5,21 +5,24 @@
  * @format
  * @flow
  */
-import { Image } from 'react-native';
+import { Image, Dimensions, TouchableOpacity } from 'react-native';
 import React from 'react';
 
 //import { createStackNavigator } from 'react-navigation';
 //import Authencation from './components/Authencation';
 //import ChangeInfo from './components/ChangeInfo';
-import Main from './components/Main';
+//import Main from './components/Main';
 //import OrderHistory from './components/OrderHistory';
-
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createDrawerNavigator, createStackNavigator, DrawerActions } from 'react-navigation';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Search from './components/Search';
 import Contact from './components/Contact';
+import Header from './components/Header';
+import NavigationService from './components/NavigationService';
 
+
+const { width } = Dimensions.get('window');
 
 const routeConfigs = {
   Home: {
@@ -102,40 +105,51 @@ const bottomTabNavigatorConfig = {
   }
 };
 
-const App = createBottomTabNavigator(routeConfigs, bottomTabNavigatorConfig);
-export default App;
+const TabNavigator = createBottomTabNavigator(routeConfigs, bottomTabNavigatorConfig);
+//---------------------------------------------------------------
+const drawerRouteConfigs = {
+  Home: {
+    screen: TabNavigator,
+  }
+};
 
+const drawerNavigatorConfig = {
+  initialRouteName: 'Home',
+  drawerWidth: width / 2,
+  drawerPosition: 'left',
+  headerMode: 'screen',
+  drawerBackgroundColor: 'white',
+  useNativeAnimations: 'true',
+  contentOptions: {
+    activeTintColor: 'red',
+  },
+};
 
+const DrawerNavigator = createDrawerNavigator(drawerRouteConfigs, drawerNavigatorConfig);
+//---------------------------------------------
+const stackRouteConfigs = {
+  DrawerNavigator: {
+    screen: DrawerNavigator
+  }
+};
 
-// const App = createStackNavigator({
-//   Main: {
-//     screen: Main,
-//     navigationOptions: {
-//       headerTitle: 'Main'
-//     },
-//   },
-//   Authencation: {
-//     screen: Authencation,
-//     navigationOptions: {
-//       headerTitle: 'Authencation'
-//     },
-//   },
-//   ChangeInfo: {
-//     screen: ChangeInfo,
-//     navigationOptions: {
-//       headerTitle: 'ChangeInfo'
-//     },
-//   },
-//   OrderHistory: {
-//     screen: OrderHistory,
-//     navigationOptions: {
-//       headerTitle: 'OrderHistory'
-//     },
-//   },
-// }, {
-//     initialRouteName: 'Main',
-//     headerMode: 'none',
-//   });
-// export default App;
+const stackNavigatorCofig = {
+  initialRouteName: 'DrawerNavigator',
+  headerMode: 'none',
+};
 
+const StackNavigator = createStackNavigator(stackRouteConfigs, stackNavigatorCofig);
+//export default stackNavigator;
+export default class App extends React.Component {
+  // ...
 
+  render() {
+    return (
+      <StackNavigator
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
+    );
+  }
+}

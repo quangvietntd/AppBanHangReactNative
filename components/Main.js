@@ -12,9 +12,6 @@ export default class Main extends Component {
     return (
       <View>
         <View>
-          <Header />
-        </View>
-        <View>
           <Text style={{ color: '#ff0080' }}> Main component </Text>
           <MyTouchable route='Authencation' navigation={navigation} />
           <MyTouchable route='OrderHistory' navigation={navigation} />

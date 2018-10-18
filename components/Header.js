@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import NavigationService from './NavigationService';
+
 
 // const screen = Dimensions.get('window');
 
@@ -17,7 +19,9 @@ export default class Header extends Component {
                         style={view1}
                   >
                         <View style={view2}>
-                              <TouchableOpacity>
+                              <TouchableOpacity
+                                    onPress={() => NavigationService.openDrawer()}
+                              >
                                     <Image
                                           style={icon}
                                           source={require('../assets/appIcon/ic_menu.png')}
@@ -43,10 +47,10 @@ export default class Header extends Component {
 }
 
 const styles = StyleSheet.create({
-      view1 : { height: 90, padding: 10, backgroundColor: 'darkviolet' },
-      view2 : { flex: 1, flexDirection: 'row', justifyContent: 'space-between' },
-      icon : { width: 25, height: 25 },
-      text : { fontSize: 18, fontWeight: 'bold', color: 'white' },
+      view1: { height: 90, padding: 10, backgroundColor: 'darkviolet' },
+      view2: { flex: 1, flexDirection: 'row', justifyContent: 'space-between' },
+      icon: { width: 25, height: 25 },
+      text: { fontSize: 18, fontWeight: 'bold', color: 'white' },
 
-      
+
 });
