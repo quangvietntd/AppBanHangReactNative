@@ -22,10 +22,9 @@ import Home from './components/Home';
 import Cart from './components/Cart';
 import Search from './components/Search';
 import Contact from './components/Contact';
-import SignOut from './components/SignOut';
 import OrderHistory from './components/OrderHistory';
 import ChangeInfo from './components/ChangeInfo';
-import Login from './components/Login';
+import Authencation from './components/Authencation';
 import CustomDrawerContentComponent from './components/CustomDrawerContentComponent';
 //import NavigationService from './components/NavigationService';
 
@@ -125,11 +124,8 @@ const drawerRouteConfigs = {
   ChangeInfo: {
     screen: ChangeInfo,
   },
-  SignOut: {
-    screen: SignOut,
-  },
-  Login: {
-    screen: Login,
+  SignIn: {
+    screen: Authencation,
   }
 };
 
