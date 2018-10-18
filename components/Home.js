@@ -17,7 +17,7 @@ export default class Home extends Component {
     return (
 
       <View style={{ flex: 1, backgroundColor: 'darkgray' }}>
-        <Header />
+        <Header navigation={this.props.navigation} />
         <ScrollView>
           <Collection />
           <Category />

@@ -1,5 +1,4 @@
-import { NavigationActions } from 'react-navigation';
-import { DrawerActions } from 'react-navigation';
+import { NavigationActions, DrawerActions } from 'react-navigation';
 
 let navigator;
 

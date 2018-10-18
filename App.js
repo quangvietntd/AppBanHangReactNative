@@ -5,7 +5,7 @@
  * @format
  * @flow
  */
-import { Image, Dimensions, TouchableOpacity } from 'react-native';
+import { Image, Dimensions } from 'react-native';
 import React from 'react';
 
 //import { createStackNavigator } from 'react-navigation';
@@ -13,13 +13,21 @@ import React from 'react';
 //import ChangeInfo from './components/ChangeInfo';
 //import Main from './components/Main';
 //import OrderHistory from './components/OrderHistory';
-import { createBottomTabNavigator, createDrawerNavigator, createStackNavigator, DrawerActions } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createDrawerNavigator,
+  createStackNavigator
+} from 'react-navigation';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Search from './components/Search';
 import Contact from './components/Contact';
-import Header from './components/Header';
-import NavigationService from './components/NavigationService';
+import SignOut from './components/SignOut';
+import OrderHistory from './components/OrderHistory';
+import ChangeInfo from './components/ChangeInfo';
+import Login from './components/Login';
+import CustomDrawerContentComponent from './components/CustomDrawerContentComponent';
+//import NavigationService from './components/NavigationService';
 
 
 const { width } = Dimensions.get('window');
@@ -110,6 +118,18 @@ const TabNavigator = createBottomTabNavigator(routeConfigs, bottomTabNavigatorCo
 const drawerRouteConfigs = {
   Home: {
     screen: TabNavigator,
+  },
+  OrderHistory: {
+    screen: OrderHistory,
+  },
+  ChangeInfo: {
+    screen: ChangeInfo,
+  },
+  SignOut: {
+    screen: SignOut,
+  },
+  Login: {
+    screen: Login,
   }
 };
 
@@ -117,6 +137,7 @@ const drawerNavigatorConfig = {
   initialRouteName: 'Home',
   drawerWidth: width / 2,
   drawerPosition: 'left',
+  contentComponent: CustomDrawerContentComponent,
   headerMode: 'screen',
   drawerBackgroundColor: 'white',
   useNativeAnimations: 'true',
@@ -136,20 +157,15 @@ const stackRouteConfigs = {
 const stackNavigatorCofig = {
   initialRouteName: 'DrawerNavigator',
   headerMode: 'none',
+
 };
 
 const StackNavigator = createStackNavigator(stackRouteConfigs, stackNavigatorCofig);
 //export default stackNavigator;
 export default class App extends React.Component {
-  // ...
-
   render() {
     return (
-      <StackNavigator
-        ref={navigatorRef => {
-          NavigationService.setTopLevelNavigator(navigatorRef);
-        }}
-      />
+      <StackNavigator />
     );
   }
 }

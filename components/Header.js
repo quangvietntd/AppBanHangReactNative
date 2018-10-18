@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import NavigationService from './NavigationService';
+//import NavigationService from './NavigationService';
+//import { withNavigation } from 'react-navigation';
 
 
 // const screen = Dimensions.get('window');
 
-export default class Header extends Component {
+class Header extends Component {
       constructor(props) {
             super(props);
             this.state = {
@@ -20,7 +21,10 @@ export default class Header extends Component {
                   >
                         <View style={view2}>
                               <TouchableOpacity
-                                    onPress={() => NavigationService.openDrawer()}
+                                    onPress={() => 
+                                        //  NavigationService.openDrawer()
+                                        this.props.navigation.toggleDrawer()
+                                    }
                               >
                                     <Image
                                           style={icon}
@@ -45,6 +49,10 @@ export default class Header extends Component {
             );
       }
 }
+
+//export default withNavigation(Header);
+export default Header;
+
 
 const styles = StyleSheet.create({
       view1: { height: 90, padding: 10, backgroundColor: 'darkviolet' },
