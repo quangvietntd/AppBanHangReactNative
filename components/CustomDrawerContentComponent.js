@@ -41,7 +41,7 @@ export default class CustomDrawerContentComponent extends Component {
                         />
                     </View>
                     <View style={{ marginBottom: 100 }} />
-                    <MyButton navigation={this.props.navigation} route='Login' label='Sign In' />
+                    <MyButton navigation={this.props.navigation} route='SignIn' label='Sign In' />
                 </SafeAreaView>
             </ScrollView>
         );

@@ -15,10 +15,12 @@ export default class Authencation extends Component {
     return (
       <View style={styles.wrapper}>
         <View style={styles.header}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
           <Image
             style={styles.iconStyle}
             source={require('../assets/appIcon/back_white.png')}
           />
+          </TouchableOpacity>
           <Text style={styles.text}>Wearing a Dress</Text>
           <Image
             style={styles.iconStyle}

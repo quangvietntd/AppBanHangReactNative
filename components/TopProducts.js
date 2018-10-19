@@ -1,46 +1,50 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import GridView from 'react-native-super-grid';
 
 const { width } = Dimensions.get('window');
 
 export default class TopProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
 
-  render() {
-    const sp1 = require('../assets/temp/sp1.jpeg');
-    const sp2 = require('../assets/temp/sp2.jpeg');
-    const sp3 = require('../assets/temp/sp3.jpeg');
-    const sp4 = require('../assets/temp/sp4.jpeg');
-    const sp5 = require('../assets/temp/sp5.jpeg');
-    return (
-        <View style={styles.wrapper}>
-            <Text style={styles.textStyle}>
-                TOP PRODUCTS
+    render() {
+        const sp1 = require('../assets/temp/sp1.jpeg');
+        const sp2 = require('../assets/temp/sp2.jpeg');
+        const sp3 = require('../assets/temp/sp3.jpeg');
+        const sp4 = require('../assets/temp/sp4.jpeg');
+        const sp5 = require('../assets/temp/sp5.jpeg');
+
+      //  const { navigation } = this.props;
+        return (
+            <View style={styles.wrapper}>
+                <Text style={styles.textStyle}>
+                    TOP PRODUCTS
             </Text>
-            <GridView
-                itemDimension={130}
-                items={[sp1, sp2, sp3, sp4, sp5]}
-                renderItem={(item) => (
-                        <View style={styles.wrapper2}>
-                            <Image 
-                                source={item}
-                                style={styles.imageStyle}
-                            />
-                            <Text style={styles.productName}>Product name</Text>
-                            <Text style={styles.productPrice}>400$</Text>
-                        </View>
-                    
-                    )  
-                }   
-            />
-        </View>
-    );
-  }
+                <GridView
+                    itemDimension={130}
+                    items={[sp1, sp2, sp3, sp4, sp5]}
+                    renderItem={(item) => (
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('ProductDetails')}
+                        >
+                            <View style={styles.wrapper2}>
+                                <Image
+                                    source={item}
+                                    style={styles.imageStyle}
+                                />
+                                <Text style={styles.productName}>Product name</Text>
+                                <Text style={styles.productPrice}>400$</Text>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                />
+            </View>
+        );
+    }
 }
 
 //361x452

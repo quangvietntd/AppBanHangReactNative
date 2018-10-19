@@ -25,6 +25,7 @@ import Contact from './components/Contact';
 import OrderHistory from './components/OrderHistory';
 import ChangeInfo from './components/ChangeInfo';
 import Authencation from './components/Authencation';
+import Header from './components/Header';
 import CustomDrawerContentComponent from './components/CustomDrawerContentComponent';
 //import NavigationService from './components/NavigationService';
 
@@ -104,7 +105,7 @@ const routeConfigs = {
 };
 
 const bottomTabNavigatorConfig = {
-  initialRoute: 'Main',
+  initialRouteName: 'Home',
   tabBarOptions: {
     activeTintColor: 'green',
     inactiveBackgroundColor: '',
@@ -152,8 +153,7 @@ const stackRouteConfigs = {
 
 const stackNavigatorCofig = {
   initialRouteName: 'DrawerNavigator',
-  headerMode: 'none',
-
+  headerMode: 'none'
 };
 
 const StackNavigator = createStackNavigator(stackRouteConfigs, stackNavigatorCofig);

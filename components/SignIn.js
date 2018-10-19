@@ -8,6 +8,8 @@ export default class SignIn extends Component {
     };
   }
 
+ 
+
   render() {
     return (
       <View style={styles.wrapper}>
