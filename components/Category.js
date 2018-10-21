@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, ImageBackground, TouchableOpacity 
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 
 const { width } = Dimensions.get('window');
+const localhost = '192.168.1.105';
+const imageUrl = `http://${localhost}/AppBanHangServer/images/type/`;
 
 export default class Category extends Component {
     constructor(props) {
@@ -17,46 +20,27 @@ export default class Category extends Component {
                 <Text style={styles.textStyle}>
                     LIST OF CATEGORY
                 </Text>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('ListProducts')}>
-                    <Swiper width={imageWidth} height={imageHeight} autoplay={true} >
-                        <ImageBackground
-                            source={require('../assets/temp/fit.jpg')}
-                            style={styles.imageStyle}
+
+                <Swiper width={imageWidth} height={imageHeight} autoplay >
+                    {this.props.type.map(e => (
+                        <TouchableOpacity
+                            key={e.id}
+                            onPress={() => this.props.navigation.navigate('ListProducts')}
                         >
-                            <Text style={styles.textStyle2}>Fit Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground
-                            source={require('../assets/temp/little.jpg')}
-                            style={styles.imageStyle}
-                        >
-                            <Text style={styles.textStyle2}>Little Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground
-                            source={require('../assets/temp/maxi.jpg')}
-                            style={styles.imageStyle}
-                        >
-                            <Text style={styles.textStyle2}>Maxi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground
-                            source={require('../assets/temp/midi.jpg')}
-                            style={styles.imageStyle}
-                        >
-                            <Text style={styles.textStyle2}>Midi Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground
-                            source={require('../assets/temp/mini.jpg')}
-                            style={styles.imageStyle}
-                        >
-                            <Text style={styles.textStyle2}>Mini Dress</Text>
-                        </ImageBackground>
-                        <ImageBackground
-                            source={require('../assets/temp/party.jpg')}
-                            style={styles.imageStyle}
-                        >
-                            <Text style={styles.textStyle2}>Party Dress</Text>
-                        </ImageBackground>
-                    </Swiper>
-                </TouchableOpacity>
+                            <ImageBackground
+                                source={{ uri: imageUrl + e.image }}
+                                style={styles.imageStyle}
+
+                            >
+                                <Text style={styles.textStyle2}>{e.name}</Text>
+                            </ImageBackground>
+                        </TouchableOpacity>
+
+                        )
+                    )}
+
+
+                </Swiper>
 
             </View>
 

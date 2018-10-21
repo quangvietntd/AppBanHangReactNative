@@ -6,12 +6,23 @@ import Category from './Category';
 import TopProducts from './TopProducts';
 
 
-export default class Home extends Component {
+export default class HomeView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      type: [],
     };
   }
+
+  componentDidMount() {
+    fetch('http://192.168.1.105/AppBanHangServer')
+      .then(res => res.json())
+      .then(resJSON => {
+        this.setState({ type: resJSON.type });
+      })
+      .catch(error => console.log(error));
+  }
+
 
   render() {
     return (
@@ -20,9 +31,9 @@ export default class Home extends Component {
         <Header navigation={this.props.navigation} />
         <ScrollView>
           <Collection />
-          <Category navigation={this.props.navigation} />
+          <Category navigation={this.props.navigation} type={this.state.type} />
           <TopProducts navigation={this.props.navigation} />
-         
+
         </ScrollView>
       </View>
 

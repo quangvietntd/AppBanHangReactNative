@@ -25,7 +25,7 @@ import Contact from './components/Contact';
 import OrderHistory from './components/OrderHistory';
 import ChangeInfo from './components/ChangeInfo';
 import Authencation from './components/Authencation';
-import Header from './components/Header';
+//import Header from './components/Header';
 import CustomDrawerContentComponent from './components/CustomDrawerContentComponent';
 //import NavigationService from './components/NavigationService';
 
