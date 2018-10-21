@@ -4,6 +4,8 @@ import GridView from 'react-native-super-grid';
 
 const { width } = Dimensions.get('window');
 
+const localhost = '192.168.1.105';
+const imageUrl = `http://${localhost}/AppBanHangServer/images/product/`;
 export default class TopProducts extends Component {
     constructor(props) {
         super(props);
@@ -12,11 +14,11 @@ export default class TopProducts extends Component {
     }
 
     render() {
-        const sp1 = require('../assets/temp/sp1.jpeg');
-        const sp2 = require('../assets/temp/sp2.jpeg');
-        const sp3 = require('../assets/temp/sp3.jpeg');
-        const sp4 = require('../assets/temp/sp4.jpeg');
-        const sp5 = require('../assets/temp/sp5.jpeg');
+        // const sp1 = require('../assets/temp/sp1.jpeg');
+        // const sp2 = require('../assets/temp/sp2.jpeg');
+        // const sp3 = require('../assets/temp/sp3.jpeg');
+        // const sp4 = require('../assets/temp/sp4.jpeg');
+        // const sp5 = require('../assets/temp/sp5.jpeg');
 
       //  const { navigation } = this.props;
         return (
@@ -26,18 +28,20 @@ export default class TopProducts extends Component {
             </Text>
                 <GridView
                     itemDimension={130}
-                    items={[sp1, sp2, sp3, sp4, sp5]}
+                    items={this.props.topProducts}
                     renderItem={(item) => (
                         <TouchableOpacity
+                            key={item.id}
                             onPress={() => this.props.navigation.navigate('ProductDetails')}
                         >
+                        { console.log(imageUrl + item.images[0])}
                             <View style={styles.wrapper2}>
                                 <Image
-                                    source={item}
+                                    source={{ uri: imageUrl + item.images[0] }}
                                     style={styles.imageStyle}
                                 />
-                                <Text style={styles.productName}>Product name</Text>
-                                <Text style={styles.productPrice}>400$</Text>
+                                <Text style={styles.productName}>{item.name}</Text>
+                                <Text style={styles.productPrice}>{item.price}$</Text>
                             </View>
                         </TouchableOpacity>
                     )}
@@ -75,6 +79,7 @@ const styles = StyleSheet.create({
         width: imageWidth,
         height: imageHeight,
         alignSelf: 'center',
+        //resizeMode: 'cover',
     },
     textStyle: {
         color: 'gray',
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     productName: {
-        fontSize: 18,
+        fontSize: 13,
         color: 'gray',
         marginLeft: 10,
     },

@@ -11,6 +11,7 @@ export default class HomeView extends Component {
     super(props);
     this.state = {
       type: [],
+      topProducts: [],
     };
   }
 
@@ -18,7 +19,10 @@ export default class HomeView extends Component {
     fetch('http://192.168.1.105/AppBanHangServer')
       .then(res => res.json())
       .then(resJSON => {
-        this.setState({ type: resJSON.type });
+        this.setState({ 
+          type: resJSON.type,
+          topProducts: resJSON.product,
+        });
       })
       .catch(error => console.log(error));
   }
@@ -32,7 +36,7 @@ export default class HomeView extends Component {
         <ScrollView>
           <Collection />
           <Category navigation={this.props.navigation} type={this.state.type} />
-          <TopProducts navigation={this.props.navigation} />
+          <TopProducts navigation={this.props.navigation} topProducts={this.state.topProducts} />
 
         </ScrollView>
       </View>
