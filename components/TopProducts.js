@@ -14,13 +14,6 @@ export default class TopProducts extends Component {
     }
 
     render() {
-        // const sp1 = require('../assets/temp/sp1.jpeg');
-        // const sp2 = require('../assets/temp/sp2.jpeg');
-        // const sp3 = require('../assets/temp/sp3.jpeg');
-        // const sp4 = require('../assets/temp/sp4.jpeg');
-        // const sp5 = require('../assets/temp/sp5.jpeg');
-
-      //  const { navigation } = this.props;
         return (
             <View style={styles.wrapper}>
                 <Text style={styles.textStyle}>
@@ -32,9 +25,8 @@ export default class TopProducts extends Component {
                     renderItem={(item) => (
                         <TouchableOpacity
                             key={item.id}
-                            onPress={() => this.props.navigation.navigate('ProductDetails')}
+                            onPress={() => this.props.navigation.navigate('ProductDetails', { product: item })}
                         >
-                        { console.log(imageUrl + item.images[0])}
                             <View style={styles.wrapper2}>
                                 <Image
                                     source={{ uri: imageUrl + item.images[0] }}

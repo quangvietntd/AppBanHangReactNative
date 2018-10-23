@@ -5,7 +5,7 @@
  * @format
  * @flow
  */
-import { Image, Dimensions } from 'react-native';
+import { Image, Dimensions, Text, View } from 'react-native';
 import React from 'react';
 
 //import { createStackNavigator } from 'react-navigation';
@@ -25,12 +25,15 @@ import Contact from './components/Contact';
 import OrderHistory from './components/OrderHistory';
 import ChangeInfo from './components/ChangeInfo';
 import Authencation from './components/Authencation';
+//import ProductDetails from './components/ProductDetails';
 //import Header from './components/Header';
 import CustomDrawerContentComponent from './components/CustomDrawerContentComponent';
 //import NavigationService from './components/NavigationService';
+import Global from './components/Global';
 
 
 const { width } = Dimensions.get('window');
+
 
 const routeConfigs = {
   Home: {
@@ -42,10 +45,11 @@ const routeConfigs = {
         const icon2 = require('./assets/appIcon/home0.png');
 
         const icon = focused ? icon1 : icon2;
-        return (<Image
-          source={icon}
-          style={{ width: 25, height: 25, }}
-        />
+        return (
+          <Image
+            source={icon}
+            style={{ width: 25, height: 25, }}
+          />
         );
       }
     },
@@ -59,10 +63,16 @@ const routeConfigs = {
         const icon2 = require('./assets/appIcon/cart0.png');
 
         const icon = focused ? icon1 : icon2;
-        return (<Image
-          source={icon}
-          style={{ width: 25, height: 25, }}
-        />
+        return (
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Image
+              source={icon}
+              style={{ width: 30, height: 30, alignSelf: 'flex-end' }}
+            />
+            <View style={{ backgroundColor: 'red', width: 16, height: 16, borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ color: 'white', fontSize: 10, fontWeight: 'bold' }}>{Global.productsInCart.length}</Text>
+            </View>
+          </View>
         );
       }
     },
@@ -101,6 +111,7 @@ const routeConfigs = {
       }
     },
   },
+
 
 };
 
@@ -158,7 +169,27 @@ const stackNavigatorCofig = {
 
 const StackNavigator = createStackNavigator(stackRouteConfigs, stackNavigatorCofig);
 //export default stackNavigator;
+
+
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrCart: [],
+    };
+    Global.addProductToCart = this.addProductToCart.bind(this);
+  }
+
+  addProductToCart(product) {
+    this.setState({
+      arrCart: this.state.arrCart.concat({ product, quantity: 1 }),
+    }, () => this.updateProductsInCart());
+  }
+
+  updateProductsInCart() {
+    Global.productsInCart = this.state.arrCart;
+  }
+
   render() {
     return (
       <StackNavigator />

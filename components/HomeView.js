@@ -4,6 +4,8 @@ import Collection from './Collection';
 import Header from './Header';
 import Category from './Category';
 import TopProducts from './TopProducts';
+import Global from './Global';
+import { withNavigationFocus } from 'react-navigation';
 
 
 export default class HomeView extends Component {
@@ -19,14 +21,13 @@ export default class HomeView extends Component {
     fetch('http://192.168.1.105/AppBanHangServer')
       .then(res => res.json())
       .then(resJSON => {
-        this.setState({ 
+        this.setState({
           type: resJSON.type,
           topProducts: resJSON.product,
         });
       })
       .catch(error => console.log(error));
   }
-
 
   render() {
     return (
