@@ -30,6 +30,8 @@ import Authencation from './components/Authencation';
 import CustomDrawerContentComponent from './components/CustomDrawerContentComponent';
 //import NavigationService from './components/NavigationService';
 import Global from './components/Global';
+import saveCart from './components/api/saveCart';
+import getCart from './components/api/getCart';
 
 
 const { width } = Dimensions.get('window');
@@ -180,6 +182,14 @@ export default class App extends React.Component {
     Global.addProductToCart = this.addProductToCart.bind(this);
   }
 
+  componentWillMount() {
+    getCart().then(arrCart => this.setState({ arrCart }
+      , () => this.updateProductsInCart()
+      ));
+  }
+
+ 
+
   addProductToCart(product) {
     this.setState({
       arrCart: this.state.arrCart.concat({ product, quantity: 1 }),
@@ -188,6 +198,8 @@ export default class App extends React.Component {
 
   updateProductsInCart() {
     Global.productsInCart = this.state.arrCart;
+    saveCart(this.state.arrCart);
+   // this.forceUpdate();
   }
 
   render() {
