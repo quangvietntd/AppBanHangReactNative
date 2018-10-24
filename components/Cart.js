@@ -24,6 +24,32 @@ class Cart extends Component {
       refresh: false,
     };
   }
+  reRender() {
+    this.setState({
+      refresh: !this.state.refresh,
+    });
+  }
+
+  increaseQuantity(id) {
+    Global.increaseQuantity(id);
+    this.setState({ refresh: !this.state.refresh },
+      () => this.forceUpdate() // render lai 2 lan, lenh forceUpdate() se thuc hien sau lenh Global.increaseQuantity(id);
+    );
+  }
+
+  decreaseQuantity(id) {
+    Global.decreaseQuantity(id);
+    this.setState({ refresh: !this.state.refresh },
+      () => this.forceUpdate() // render lai 2 lan
+    );
+  }
+
+  removeProduct(id) {
+    Global.removeProduct(id);
+    this.setState({ refresh: !this.state.refresh },
+      () => this.forceUpdate() // render lai 2 lan
+    );
+  }
 
   render() {
     const { main, checkoutButton, checkoutTitle, wrapper,
@@ -33,6 +59,9 @@ class Cart extends Component {
     //const item = this.props.navigation.getParam('item', 'null');
     const arrCart = Global.productsInCart;
     //console.log(arrCart);
+    const arr = arrCart.map(e => e.product.price * e.quantity); // price * quantity
+    const total = arr.length !== 0 ? arr.reduce((previouValue, currentValue) => previouValue + currentValue) : 0;
+
 
     return (
 
@@ -46,7 +75,7 @@ class Cart extends Component {
                 <View style={mainRight}>
                   <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                     <Text style={txtName}>{item.product.name}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.removeProduct(item.product.id)}>
                       <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
                     </TouchableOpacity>
                   </View>
@@ -55,11 +84,11 @@ class Cart extends Component {
                   </View>
                   <View style={productController}>
                     <View style={numberOfProduct}>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => this.increaseQuantity(item.product.id)}>
                         <Text>+</Text>
                       </TouchableOpacity>
                       <Text>{item.quantity}</Text>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => this.decreaseQuantity(item.product.id)}>
                         <Text>-</Text>
                       </TouchableOpacity>
                     </View>
@@ -75,7 +104,7 @@ class Cart extends Component {
           }
         </ScrollView>
         <TouchableOpacity style={checkoutButton}>
-          <Text style={checkoutTitle}>TOTAL {1000}$ CHECKOUT NOW</Text>
+          <Text style={checkoutTitle}>TOTAL {total}$ CHECKOUT NOW</Text>
         </TouchableOpacity>
       </View>
     );

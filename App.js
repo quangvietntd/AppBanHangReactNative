@@ -178,29 +178,76 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       arrCart: [],
+      refresh: false,
     };
     Global.addProductToCart = this.addProductToCart.bind(this);
+    Global.increaseQuantity = this.increaseQuantity.bind(this);
+    Global.decreaseQuantity = this.decreaseQuantity.bind(this);
+    Global.removeProduct = this.removeProduct.bind(this);
   }
 
   componentWillMount() {
     getCart().then(arrCart => this.setState({ arrCart }
       , () => this.updateProductsInCart()
-      ));
+    ));
   }
 
- 
-
   addProductToCart(product) {
-    this.setState({
-      arrCart: this.state.arrCart.concat({ product, quantity: 1 }),
-    }, () => this.updateProductsInCart());
+    const check = this.state.arrCart.findIndex(e => e.product.id === product.id);
+    if (check !== -1) { // this product is exist in cart
+      const newCart = this.state.arrCart;
+      newCart.splice(check, 1, { product, quantity: newCart[check].quantity + 1 });
+      this.setState({ arrCart: newCart },
+        () => this.updateProductsInCart()
+      );
+    } else {
+      this.setState({
+        arrCart: this.state.arrCart.concat({ product, quantity: 1 }),
+      }, () => this.updateProductsInCart());
+    }
   }
 
   updateProductsInCart() {
     Global.productsInCart = this.state.arrCart;
     saveCart(this.state.arrCart);
-   // this.forceUpdate();
   }
+
+  increaseQuantity(productId) {
+    const newArrCart = this.state.arrCart.map(e => {
+      if (e.product.id !== productId) return e;
+      return { product: e.product, quantity: e.quantity + 1 };
+      // return (e.product.id !== productId) ? e : { product: e.product, quantity: e.quantity + 1 };
+    });
+    this.setState({ arrCart: newArrCart },
+      () => this.updateProductsInCart()
+    );
+  }
+
+  decreaseQuantity(productId) {
+    const newArrCart = this.state.arrCart.map(e => {
+      return (e.product.id !== productId) ? e : { product: e.product, quantity: e.quantity > 1 ? (e.quantity - 1) : 1 };
+    });
+    this.setState({ arrCart: newArrCart },
+      () => this.updateProductsInCart()
+    );
+  }
+
+  removeProduct(productId) {
+    const newCart = this.state.arrCart.filter(e => e.product.id !== productId);
+    this.setState({ arrCart: newCart },
+      () => this.updateProductsInCart()
+    );
+  }
+
+  // cach khac:
+  // removeProduct(productId) {
+  //   const start = this.state.arrCart.findIndex(e => e.product.id === productId);
+  //   const newCart = this.state.arrCart;
+  //   newCart.splice(start, 1);
+  //   this.setState({ arrCart: newCart },
+  //     () => this.updateProductsInCart()  
+  //   );
+  // }
 
   render() {
     return (

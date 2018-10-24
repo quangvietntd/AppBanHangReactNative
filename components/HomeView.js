@@ -4,9 +4,6 @@ import Collection from './Collection';
 import Header from './Header';
 import Category from './Category';
 import TopProducts from './TopProducts';
-import Global from './Global';
-import { withNavigationFocus } from 'react-navigation';
-
 
 export default class HomeView extends Component {
   constructor(props) {
