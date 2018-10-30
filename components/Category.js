@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Dimensions, StyleSheet, ImageBackground, TouchableOpacity 
 } from 'react-native';
 import Swiper from 'react-native-swiper';
+import { localhost } from './localhost';
 
 const { width } = Dimensions.get('window');
-const localhost = '192.168.1.105';
 const imageUrl = `http://${localhost}/AppBanHangServer/images/type/`;
 
 export default class Category extends Component {

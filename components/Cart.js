@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 
 import { withNavigationFocus } from 'react-navigation';
+import { localhost } from './localhost';
 
 import Global from './Global';
 import Header from './Header';
@@ -14,7 +15,6 @@ import Header from './Header';
 //   return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 // }
 
-const localhost = '192.168.1.105';
 const imageUrl = `http://${localhost}/AppBanHangServer/images/product/`;
 
 class Cart extends Component {
@@ -94,6 +94,7 @@ class Cart extends Component {
                     </View>
                     <TouchableOpacity
                       style={showDetailContainer}
+                      onPress={() => this.props.navigation.navigate('ProductDetails', { product: item.product })}
                     >
                       <Text style={txtShowDetail} >SHOW DETAILS</Text>
                     </TouchableOpacity>

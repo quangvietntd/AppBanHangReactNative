@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
     View, Text, StyleSheet, Image, Dimensions, ScrollView, TouchableOpacity
 } from 'react-native';
-import { withNavigationFocus } from 'react-navigation';
+//import { withNavigationFocus } from 'react-navigation';
+import { localhost } from './localhost';
 
 import Global from './Global';
 import Header from './Header';
@@ -10,15 +11,9 @@ import Header from './Header';
 // const back = require('../assets/appIcon/back.png');
 // const cart = require('../assets/appIcon/cart.png');
 
-const localhost = '192.168.1.105';
 const imageUrl = `http://${localhost}/AppBanHangServer/images/product/`;
 
 export default class ProductDetails extends Component {
-    constructor(props) {
-        super(props);
-       // Global.addProductToCart = this.addThisProductToCart.bind(this);
-    }
-
     addThisProductToCart(product) {
         Global.addProductToCart(product);
   }

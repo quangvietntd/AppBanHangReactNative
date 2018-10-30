@@ -4,6 +4,7 @@ import Collection from './Collection';
 import Header from './Header';
 import Category from './Category';
 import TopProducts from './TopProducts';
+import { localhost } from './localhost';
 
 export default class HomeView extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class HomeView extends Component {
   }
 
   componentDidMount() {
-    fetch('http://192.168.1.105/AppBanHangServer')
+    fetch(`http://${localhost}/AppBanHangServer`)
       .then(res => res.json())
       .then(resJSON => {
         this.setState({

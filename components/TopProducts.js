@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import GridView from 'react-native-super-grid';
+import { localhost } from './localhost';
 
 const { width } = Dimensions.get('window');
 
-const localhost = '192.168.1.105';
 const imageUrl = `http://${localhost}/AppBanHangServer/images/product/`;
 export default class TopProducts extends Component {
     constructor(props) {
