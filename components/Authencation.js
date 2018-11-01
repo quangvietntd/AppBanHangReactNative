@@ -8,7 +8,7 @@ export default class Authencation extends Component {
     super(props);
     this.state = {
       isSignIn: true,
-    }
+    };
   }
   render() {
     const MainJSX = this.state.isSignIn ? SignIn : SignUp;

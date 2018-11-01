@@ -7,7 +7,7 @@ export default class CustomDrawerContentComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogedIn: true,
+            isLogedIn: false,
         };
     }
     render() {
