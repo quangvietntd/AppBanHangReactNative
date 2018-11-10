@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import MyButton from './MyButton';
+import Global from './Global';
 
 export default class CustomDrawerContentComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isLogedIn: false,
+            username: '',
         };
+        Global.onSignIn = this.onSignIn.bind(this);
     }
+
+    onSignIn(user) {
+        this.setState({ username: user.name, isLogedIn: true });
+    }
+
     render() {
         // const { navigate } = this.props.navigation;
         const logOutJSX = (
@@ -22,7 +30,7 @@ export default class CustomDrawerContentComponent extends Component {
                         />
                     </View>
                     <View style={{ marginTop: 10, marginBottom: 100, alignItems: 'center' }}>
-                        <Text style={styles.textStyle}>Nguyen Quang Viet</Text>
+                        <Text style={styles.textStyle}>{this.state.username}</Text>
                     </View>
                     <MyButton navigation={this.props.navigation} route='OrderHistory' label='Order History' />
                     <MyButton navigation={this.props.navigation} route='ChangeInfo' label='Change Info' />
@@ -49,6 +57,7 @@ export default class CustomDrawerContentComponent extends Component {
         return this.state.isLogedIn ? logOutJSX : loginJSX;
     }
 }
+
 const styles = StyleSheet.create({
     wrapper: {
         alignItems: 'center',

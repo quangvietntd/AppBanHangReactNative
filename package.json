@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3",
+    "react-native-floating-labels": "^1.1.9",
     "react-native-super-grid": "^2.4.3",
     "react-native-swiper": "^1.5.13",
     "react-navigation": "^2.18.0"
