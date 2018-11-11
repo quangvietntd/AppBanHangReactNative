@@ -40,8 +40,7 @@ export default class HomeView extends Component {
             })
             .catch(err => console.log(err));
 
-        setInterval(() => getToken().then(token => refreshToken(token)), 3000);
-        setInterval(() => getToken().then(token => console.log(token)), 3000);
+        setInterval(() => getToken().then(token => refreshToken(token)), 60000); //refresh token sau 1 phut
     }
 
     render() {
