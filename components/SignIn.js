@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import logIn from './api/logIn';
 import Global from './Global';
+import saveToken from './api/saveToken';
 
 export default class SignIn extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ export default class SignIn extends Component {
             .then(res => {
                 if (res) {
                     //Alert.alert('SignIn successfully!');
+                    saveToken(res.token);
                     Global.onSignIn(res.user);
                     this.props.navigation.goBack();
                 } else {
