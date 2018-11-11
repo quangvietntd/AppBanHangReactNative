@@ -8,6 +8,7 @@ import { localhost } from './localhost';
 import checkLogin from './api/checkLogin';
 import getToken from './api/getToken';
 import Global from './Global';
+import refreshToken from './api/refreshToken';
 
 export default class HomeView extends Component {
     constructor(props) {
@@ -38,6 +39,9 @@ export default class HomeView extends Component {
                 Global.onSignIn(res.user);
             })
             .catch(err => console.log(err));
+
+        setInterval(() => getToken().then(token => refreshToken(token)), 3000);
+        setInterval(() => getToken().then(token => console.log(token)), 3000);
     }
 
     render() {
@@ -49,7 +53,6 @@ export default class HomeView extends Component {
                     <Collection />
                     <Category navigation={this.props.navigation} type={this.state.type} />
                     <TopProducts navigation={this.props.navigation} topProducts={this.state.topProducts} />
-
                 </ScrollView>
             </View>
 
