@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet, ImageBackground, TouchableOpacity 
+import {
+    View, Text, Dimensions, StyleSheet, ImageBackground, TouchableOpacity
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { localhost } from './localhost';
@@ -25,7 +26,7 @@ export default class Category extends Component {
                     {this.props.type.map(e => (
                         <TouchableOpacity
                             key={e.id}
-                            onPress={() => this.props.navigation.navigate('ListProducts')}
+                            onPress={() => this.props.navigation.navigate('ListProducts', { category: e })}
                         >
                             <ImageBackground
                                 source={{ uri: imageUrl + e.image }}
@@ -36,7 +37,7 @@ export default class Category extends Component {
                             </ImageBackground>
                         </TouchableOpacity>
 
-                        )
+                    )
                     )}
 
 

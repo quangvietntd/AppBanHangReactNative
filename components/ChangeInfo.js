@@ -16,7 +16,6 @@ export default class ChangeInfo extends Component {
             name: '', 
             address: '', 
             phone: '', 
-            user: ''
         };
     }
 
@@ -33,10 +32,11 @@ export default class ChangeInfo extends Component {
 
         getToken()
         .then(token => changeInfo(token, name, address, phone))
-        .then(res => {
+        .then(() => {
             Alert.alert('Update Successfully!');
-            this.setState({ user: res });
-        });
+            this.props.navigation.goBack();
+        })
+        .catch(err => console.log(err));
     }
 
     render() {

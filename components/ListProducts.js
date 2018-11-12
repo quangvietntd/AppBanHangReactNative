@@ -1,28 +1,49 @@
 import React, { Component } from 'react';
 import {
     View, Image, Text, StyleSheet,
-    ScrollView, TouchableOpacity
+    FlatList, TouchableOpacity, RefreshControl
 } from 'react-native';
 import Header from './Header';
-//import Category from './Category';
+import MyListItem from './MyListItem';
+import getProductByType from './api/getProductByType';
+
 
 export default class ListProducts extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            data: [],
+            refreshing: false,
+            page: 1,
         };
     }
 
+    componentDidMount() {
+        const category = this.props.navigation.getParam('category');
+        getProductByType(category.id, this.state.page)
+            .then(res => this.setState({ data: res }))
+            .catch(err => console.log(err));
+    }
+
+    onRefresh = () => {
+        const category = this.props.navigation.getParam('category');
+        this.setState({ refreshing: true, page: this.state.page + 1 }, () => {
+            getProductByType(category.id, this.state.page)
+                .then(res => {
+                    this.setState({ data: res.concat(this.state.data), refreshing: false });
+                })
+                .catch(() => this.setState({ refreshing: false }));
+        });
+    }
+
     render() {
-        const { iconStyle, categoryName, header, productContainer,
-            productImage, productInfo, lastRowProductInfo,
-            nameProduct, priceProduct, materialProduct, colorProduct,
-            showDetails, colorCircle,
+        const { iconStyle, categoryName, header, wrapper, cardStyle
         } = styles;
+        const category = this.props.navigation.getParam('category');
         return (
-            <View>
+            <View style={wrapper}>
                 <Header navigation={this.props.navigation} />
-                <View>
+                <View style={cardStyle}>
                     <View style={header}>
                         <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                             <Image
@@ -30,161 +51,27 @@ export default class ListProducts extends Component {
                                 source={require('../assets/appIcon/backList.png')}
                             />
                         </TouchableOpacity>
-                        <Text style={categoryName}> Party Dress</Text>
+                        <Text style={categoryName}> {category.name}</Text>
                         <View style={{ width: 30 }} />
                     </View>
-                    <ScrollView>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ProductDetails')}>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={productContainer}>
-                            <Image
-                                style={productImage}
-                                source={require('../assets/temp/sp1.jpeg')}
-                            />
-                            <View style={productInfo}>
-                                <Text style={nameProduct}>Lace Sleece Si</Text>
-                                <Text style={priceProduct}>171$</Text>
-                                <Text style={materialProduct}>Material Silk</Text>
-                                <View style={lastRowProductInfo}>
-                                    <Text style={colorProduct}>Color RoyalBlue</Text>
-                                    <View style={colorCircle} />
-                                    <TouchableOpacity>
-                                        <Text style={showDetails}>SHOW DETAILS</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    </ScrollView>
+                        <FlatList
+                            data={this.state.data}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => ( // tai sao them dau ngoac {}???
+                                <MyListItem
+                                    id={item.id}
+                                    data={item}
+                                    navigation={this.props.navigation}
+                                />
+                            )}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={() => this.onRefresh()}
+                                />
+                            }
+                        />
                 </View>
-
-                {/* <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                    <Text>Back</Text>
-                </TouchableOpacity> */}
-
             </View>
         );
     }
@@ -205,58 +92,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 5,
     },
-    productContainer: {
+    wrapper: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        padding: 10,
-        paddingVertical: 15,
-        borderTopColor: '#F0F0F0',
-        borderBottomColor: '#FFF',
-        borderLeftColor: '#FFF',
-        borderRightColor: '#FFF',
-        borderWidth: 1
+        backgroundColor: '#D6D6D6',
     },
-    productImage: {
-        flex: 30,
-        width: 361 * 0.25,
-        height: 452 * 0.25,
-        resizeMode: 'center',
+    cardStyle: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+      //  borderRadius: 5,
+        marginHorizontal: 5,
+        marginVertical: 5
     },
-    productInfo: {
-        flex: 70,
-        marginLeft: 20,
-        justifyContent: 'space-between',
-
-    },
-    lastRowProductInfo: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    nameProduct: {
-        fontSize: 20,
-        color: 'gray'
-    },
-    priceProduct: {
-        fontSize: 16,
-        color: 'darkviolet'
-    },
-    materialProduct: {
-        fontSize: 14,
-        color: 'black'
-    },
-    colorProduct: {
-        fontSize: 14,
-        color: 'black'
-    },
-    colorCircle: {
-        width: 20,
-        height: 20,
-        borderRadius: 10,
-        backgroundColor: 'cyan',
-    },
-    showDetails: {
-        color: 'darkviolet',
-        fontSize: 12,
-    }
 });
