@@ -8,8 +8,8 @@ const getProductByType = (typeId, page) => (
             Accept: 'application/json'
         },
     })
-    .then(res => res.json())
-    .catch(err => console.log(err))
+        .then(res => res.json())
+        .catch(err => console.log(err))
 );
 
 export default getProductByType;

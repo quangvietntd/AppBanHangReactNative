@@ -3,10 +3,11 @@ import {
     View, Image, Text, StyleSheet,
     FlatList, TouchableOpacity, RefreshControl
 } from 'react-native';
+import Toast from 'react-native-simple-toast';
 import Header from './Header';
 import MyListItem from './MyListItem';
 import getProductByType from './api/getProductByType';
-
+import Global from './Global';
 
 export default class ListProducts extends Component {
     constructor(props) {
@@ -32,7 +33,10 @@ export default class ListProducts extends Component {
                 .then(res => {
                     this.setState({ data: res.concat(this.state.data), refreshing: false });
                 })
-                .catch(() => this.setState({ refreshing: false }));
+                .catch(() => {
+                    this.setState({ refreshing: false });
+                    Toast.show('No data', Toast.SHORT);
+                });
         });
     }
 
@@ -54,23 +58,23 @@ export default class ListProducts extends Component {
                         <Text style={categoryName}> {category.name}</Text>
                         <View style={{ width: 30 }} />
                     </View>
-                        <FlatList
-                            data={this.state.data}
-                            keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => ( // tai sao them dau ngoac {}???
-                                <MyListItem
-                                    id={item.id}
-                                    data={item}
-                                    navigation={this.props.navigation}
-                                />
-                            )}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={this.state.refreshing}
-                                    onRefresh={() => this.onRefresh()}
-                                />
-                            }
-                        />
+                    <FlatList
+                        data={this.state.data}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => ( // tai sao them dau ngoac {}???
+                            <MyListItem
+                                id={item.id}
+                                data={item}
+                                navigation={this.props.navigation}
+                            />
+                        )}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={() => this.onRefresh()}
+                            />
+                        }
+                    />
                 </View>
             </View>
         );
@@ -99,7 +103,7 @@ const styles = StyleSheet.create({
     cardStyle: {
         flex: 1,
         backgroundColor: '#FFFFFF',
-      //  borderRadius: 5,
+        //  borderRadius: 5,
         marginHorizontal: 5,
         marginVertical: 5
     },

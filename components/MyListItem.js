@@ -26,7 +26,7 @@ export default class MyListItem extends Component {
                     <Text style={materialProduct}>Material {material}</Text>
                     <View style={lastRowProductInfo}>
                         <Text style={colorProduct}>Color {color}</Text>
-                        <View style={colorCircle} />
+                        <View style={{ ...colorCircle, backgroundColor: color.toLowerCase() }} />
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('ProductDetails', { product: this.props.data })}>
                             <Text style={showDetails}>SHOW DETAILS</Text>
                         </TouchableOpacity>

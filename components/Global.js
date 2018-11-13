@@ -5,4 +5,5 @@ module.exports = {
     decreaseQuantity: null,
     removeProduct: null,
     onSignIn: null,
+    setListData: null,
 };
