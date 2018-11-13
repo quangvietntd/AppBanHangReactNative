@@ -4,6 +4,7 @@ import {
     Dimensions, StyleSheet, Image
 } from 'react-native';
 
+import Toast from 'react-native-simple-toast';
 import { withNavigationFocus } from 'react-navigation';
 import { localhost } from './localhost';
 
@@ -11,6 +12,7 @@ import Global from './Global';
 import Header from './Header';
 import checkout from './api/checkout';
 import getToken from './api/getToken';
+import removeCart from './api/removeCart';
 
 
 // function toTitleCase(str) {
@@ -26,10 +28,21 @@ class Cart extends Component {
             refresh: false,
         };
     }
-    reRender() {
-        this.setState({
-            refresh: !this.state.refresh,
-        });
+
+    onCheckout(arrCart) {
+        const arrDetail = arrCart.map(e => JSON.parse(JSON.stringify({ id: e.product.id, quantity: e.quantity })));
+        getToken()
+            .then(token => checkout(token, arrDetail))
+            .then(res => {
+                if (res === 'THEM_THANH_CONG') {
+                    Global.removeCart();
+                    this.setState({ refresh: !this.state.refresh }); //render lai 
+                    Toast.show('Order successfully!', Toast.LONG);
+                } else {
+                    Toast.show('Order failed!', Toast.LONG);
+                }
+            })
+            .catch(err => console.log(err));
     }
 
     increaseQuantity(id) {
@@ -53,14 +66,7 @@ class Cart extends Component {
         );
     }
 
-    onCheckout(arrCart) {
-        const arrDetail = arrCart.map(e => JSON.parse(JSON.stringify({ id: e.product.id, quantity: e.quantity })));
-        console.log(arrDetail);
-        getToken()
-            .then(token => checkout(token, arrDetail))
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-    }
+  
     render() {
         const { main, checkoutButton, checkoutTitle, wrapper,
             product, mainRight, productController,
@@ -68,7 +74,6 @@ class Cart extends Component {
             txtShowDetail, showDetailContainer } = styles;
         //const item = this.props.navigation.getParam('item', 'null');
         const arrCart = Global.productsInCart;
-        console.log(arrCart);
         const arr = arrCart.map(e => e.product.price * e.quantity); // price * quantity
         const total = arr.length !== 0 ? arr.reduce((previouValue, currentValue) => previouValue + currentValue) : 0;
 

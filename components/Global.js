@@ -6,4 +6,5 @@ module.exports = {
     removeProduct: null,
     onSignIn: null,
     setListData: null,
+    removeCart: null,
 };
