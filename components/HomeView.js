@@ -49,7 +49,7 @@ export default class HomeView extends Component {
             <View style={{ flex: 1, backgroundColor: 'darkgray' }}>
                 <Header navigation={this.props.navigation} />
                 <ScrollView>
-                    <Collection />
+                    <Collection navigation={this.props.navigation} />
                     <Category navigation={this.props.navigation} type={this.state.type} />
                     <TopProducts navigation={this.props.navigation} topProducts={this.state.topProducts} />
                 </ScrollView>

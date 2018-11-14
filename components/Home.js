@@ -2,6 +2,7 @@ import { createStackNavigator } from 'react-navigation';
 import HomeView from './HomeView';
 import ProductDetails from './ProductDetails';
 import ListProducts from './ListProducts';
+import ListProductsInCollection from './ListProductsInCollection';
 
 const stackRouteConfigs = {
   ProductDetails: {
@@ -12,6 +13,9 @@ const stackRouteConfigs = {
   },
   ListProducts: {
     screen: ListProducts,
+  },
+  ListProductsInCollection: {
+    screen: ListProductsInCollection,
   },
 };
 const stackNavigatorConfig = {

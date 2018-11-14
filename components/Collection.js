@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -15,11 +15,13 @@ export default class Collection extends Component {
             <View style={styles.wrapper}>
                 <Text style={styles.textStyle}>
                     SPRING COLLECTION
-                </Text>
-                <Image
-                    source={require('../assets/temp/banner.jpg')}
-                    style={styles.imageStyle}
-                />
+                    </Text>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ListProductsInCollection')}>
+                    <Image
+                        source={require('../assets/temp/banner.jpg')}
+                        style={styles.imageStyle}
+                    />
+                </TouchableOpacity>
             </View>
         );
     }

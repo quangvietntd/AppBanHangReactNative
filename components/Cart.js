@@ -30,7 +30,7 @@ class Cart extends Component {
     }
 
     onCheckout(arrCart) {
-        const arrDetail = arrCart.map(e => JSON.parse(JSON.stringify({ id: e.product.id, quantity: e.quantity })));
+        const arrDetail = arrCart.map(e => ({ id: e.product.id, quantity: e.quantity }));
         getToken()
             .then(token => checkout(token, arrDetail))
             .then(res => {
